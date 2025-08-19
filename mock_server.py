@@ -71,3 +71,30 @@ def get_pokemon(identifier):
 if __name__ == "__main__":
     # instalar flask si no lo tienes: pip install flask
     app.run(host="0.0.0.0", port=8000, debug=False)
+
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route("/pokemon/pikachu")
+def get_pikachu():
+    return jsonify({
+        "id": 25,
+        "name": "pikachu",
+        "abilities": [{"ability": {"name": "static"}}],
+        "moves": [{"move": {"name": "thunder-shock"}}],
+        "stats": [{"base_stat": 35, "stat": {"name": "hp"}}]
+    })
+
+@app.route("/pokemon")
+def get_pokemon_list():
+    return jsonify({
+        "count": 2,
+        "results": [
+            {"name": "pikachu"},
+            {"name": "bulbasaur"}
+        ]
+    })
+
+if __name__ == "__main__":
+    app.run(port=5000, debug=True)
